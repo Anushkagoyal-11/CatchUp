@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { MessageSquare, RefreshCw, CheckCircle2 } from 'lucide-react';
+import { MessageSquare, RefreshCw, CheckCircle2, Plus } from 'lucide-react';
 import { CapturedMessage, AISummary, UnreadStatus } from '../core/message-schema';
 import { generateAISummary } from '../ai/client';
 import './index.css';
@@ -9,28 +9,15 @@ export default function App() {
   const [summary, setSummary] = useState<AISummary | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  
+  // For Web Demo dynamic input
+  const isWebMode = typeof chrome === 'undefined' || !chrome.runtime;
+  const [demoInput, setDemoInput] = useState('');
 
   const fetchMessages = () => {
+    if (isWebMode) return; // In web mode, we rely on manual input
+    
     setLoading(true);
-    // If running on the web instead of Chrome Extension
-    if (typeof chrome === 'undefined' || !chrome.runtime) {
-      setTimeout(() => {
-        setMessages([
-          {
-            id: '1', platform: 'Slack', conversationId: 'c1', conversationName: '#engineering', senderId: 'u1', senderName: 'Alice (Manager)', timestamp: new Date().toISOString(), capturedAt: new Date().toISOString(), content: 'We need the final presentation slides submitted by 3 PM today. Please review the current deck and leave comments.', contentType: 'text', direction: 'incoming', accessibilityStatus: 'visible', unreadStatus: UnreadStatus.UNKNOWN, unreadEvidence: null, unreadConfidence: 1, sourceUrl: '', extractionMethod: 'mock', contentHash: '1', schemaVersion: 1
-          },
-          {
-            id: '2', platform: 'WhatsApp', conversationId: 'c2', conversationName: 'Design Sync', senderId: 'u2', senderName: 'Bob (Designer)', timestamp: new Date().toISOString(), capturedAt: new Date().toISOString(), content: 'I updated the UI mockups. It looks much better now. Did you guys approve the new layout?', contentType: 'text', direction: 'incoming', accessibilityStatus: 'visible', unreadStatus: UnreadStatus.UNKNOWN, unreadEvidence: null, unreadConfidence: 1, sourceUrl: '', extractionMethod: 'mock', contentHash: '2', schemaVersion: 1
-          },
-          {
-            id: '3', platform: 'Discord', conversationId: 'c3', conversationName: 'Gaming Buddies', senderId: 'u3', senderName: 'Charlie', timestamp: new Date().toISOString(), capturedAt: new Date().toISOString(), content: 'Are we still on for tonight at 8 PM?', contentType: 'text', direction: 'incoming', accessibilityStatus: 'visible', unreadStatus: UnreadStatus.UNKNOWN, unreadEvidence: null, unreadConfidence: 1, sourceUrl: '', extractionMethod: 'mock', contentHash: '3', schemaVersion: 1
-          }
-        ]);
-        setLoading(false);
-      }, 500);
-      return;
-    }
-
     chrome.runtime.sendMessage({ type: 'GET_MESSAGES' }, (response) => {
       if (response && response.success) {
         setMessages(response.messages);
@@ -42,6 +29,35 @@ export default function App() {
   useEffect(() => {
     fetchMessages();
   }, []);
+
+  const handleAddDemoMessage = () => {
+    if (!demoInput.trim()) return;
+    
+    const newMsg: CapturedMessage = {
+      id: crypto.randomUUID(),
+      platform: 'Web Demo',
+      conversationId: 'demo',
+      conversationName: 'Dynamic Chat',
+      senderId: 'demo_user',
+      senderName: 'Evaluator',
+      timestamp: new Date().toISOString(),
+      capturedAt: new Date().toISOString(),
+      content: demoInput,
+      contentType: 'text',
+      direction: 'incoming',
+      accessibilityStatus: 'visible',
+      unreadStatus: UnreadStatus.UNKNOWN,
+      unreadEvidence: null,
+      unreadConfidence: 1,
+      sourceUrl: '',
+      extractionMethod: 'manual',
+      contentHash: crypto.randomUUID(),
+      schemaVersion: 1
+    };
+    
+    setMessages(prev => [newMsg, ...prev]);
+    setDemoInput('');
+  };
 
   const handleGenerateSummary = async () => {
     if (messages.length === 0) return;
@@ -62,14 +78,38 @@ export default function App() {
     <div className="container">
       <div className="header">
         <h1>CatchUp Dashboard</h1>
-        <button className="button" style={{ width: 'auto', padding: '6px 12px' }} onClick={fetchMessages}>
-          <RefreshCw size={16} style={{ marginRight: '6px' }} /> Sync
-        </button>
+        {!isWebMode && (
+          <button className="button" style={{ width: 'auto', padding: '6px 12px' }} onClick={fetchMessages}>
+            <RefreshCw size={16} style={{ marginRight: '6px' }} /> Sync
+          </button>
+        )}
       </div>
+
+      {isWebMode && (
+        <div className="card" style={{ marginBottom: '16px' }}>
+          <div className="card-title">Dynamic Data Entry (Web Mode)</div>
+          <div style={{ fontSize: '0.85rem', color: '#cbd5e1', marginBottom: '8px' }}>
+            Since websites cannot read your WhatsApp/Slack tabs due to browser security, paste your messages here to dynamically test the engine!
+          </div>
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <input 
+              type="text" 
+              value={demoInput}
+              onChange={(e) => setDemoInput(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleAddDemoMessage()}
+              placeholder="Type a message to summarize..."
+              style={{ flex: 1, padding: '8px', borderRadius: '6px', border: '1px solid var(--border-color)', background: 'rgba(0,0,0,0.2)', color: 'white' }}
+            />
+            <button className="button" style={{ width: 'auto', padding: '8px 12px' }} onClick={handleAddDemoMessage}>
+              <Plus size={16} />
+            </button>
+          </div>
+        </div>
+      )}
 
       <div className="card">
         <div className="card-title">Recent Unread Messages ({messages.length})</div>
-        {messages.length === 0 && <div style={{ color: 'var(--text-muted)' }}>No recent messages captured.</div>}
+        {messages.length === 0 && <div style={{ color: 'var(--text-muted)' }}>No messages captured yet.</div>}
         
         {messages.slice(0, 5).map(msg => (
           <div key={msg.id} className="message-item">
@@ -90,10 +130,10 @@ export default function App() {
         {loading ? <div className="loader" /> : <><MessageSquare size={16} style={{ marginRight: '8px' }}/> Catch Me Up</>}
       </button>
 
-      {error && <div style={{ color: 'var(--danger)', fontSize: '0.9rem' }}>Error: {error}</div>}
+      {error && <div style={{ color: 'var(--danger)', fontSize: '0.9rem', marginTop: '12px' }}>Error: {error}</div>}
 
       {summary && (
-        <div className="card">
+        <div className="card" style={{ marginTop: '16px' }}>
           <div className="card-title" style={{ color: 'var(--success)', display: 'flex', alignItems: 'center' }}>
             <CheckCircle2 size={16} style={{ marginRight: '6px' }} /> AI Summary Ready
           </div>
