@@ -1,3 +1,4 @@
+import { generateContentHash } from "../../core/utils";
 import { BaseAdapter } from '../shared/BaseAdapter';
 import { CapturedMessage, UnreadStatus } from '../../core/message-schema';
 
@@ -46,7 +47,7 @@ class WhatsAppAdapter extends BaseAdapter {
         unreadConfidence: 0.8,
         sourceUrl: window.location.href,
         extractionMethod: 'dom_scraping',
-        contentHash: btoa(unescape(encodeURIComponent(content))).substring(0, 32),
+        contentHash: generateContentHash(content),
         schemaVersion: 1
       });
     });

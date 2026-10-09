@@ -12,6 +12,25 @@ export default function App() {
 
   const fetchMessages = () => {
     setLoading(true);
+    // If running on the web instead of Chrome Extension
+    if (typeof chrome === 'undefined' || !chrome.runtime) {
+      setTimeout(() => {
+        setMessages([
+          {
+            id: '1', platform: 'Slack', conversationId: 'c1', conversationName: '#engineering', senderId: 'u1', senderName: 'Alice (Manager)', timestamp: new Date().toISOString(), capturedAt: new Date().toISOString(), content: 'We need the final presentation slides submitted by 3 PM today. Please review the current deck and leave comments.', contentType: 'text', direction: 'incoming', accessibilityStatus: 'visible', unreadStatus: 1, unreadEvidence: null, unreadConfidence: 1, sourceUrl: '', extractionMethod: 'mock', contentHash: '1', schemaVersion: 1
+          },
+          {
+            id: '2', platform: 'WhatsApp', conversationId: 'c2', conversationName: 'Design Sync', senderId: 'u2', senderName: 'Bob (Designer)', timestamp: new Date().toISOString(), capturedAt: new Date().toISOString(), content: 'I updated the UI mockups. It looks much better now. Did you guys approve the new layout?', contentType: 'text', direction: 'incoming', accessibilityStatus: 'visible', unreadStatus: 1, unreadEvidence: null, unreadConfidence: 1, sourceUrl: '', extractionMethod: 'mock', contentHash: '2', schemaVersion: 1
+          },
+          {
+            id: '3', platform: 'Discord', conversationId: 'c3', conversationName: 'Gaming Buddies', senderId: 'u3', senderName: 'Charlie', timestamp: new Date().toISOString(), capturedAt: new Date().toISOString(), content: 'Are we still on for tonight at 8 PM?', contentType: 'text', direction: 'incoming', accessibilityStatus: 'visible', unreadStatus: 1, unreadEvidence: null, unreadConfidence: 1, sourceUrl: '', extractionMethod: 'mock', contentHash: '3', schemaVersion: 1
+          }
+        ]);
+        setLoading(false);
+      }, 500);
+      return;
+    }
+
     chrome.runtime.sendMessage({ type: 'GET_MESSAGES' }, (response) => {
       if (response && response.success) {
         setMessages(response.messages);
