@@ -19,8 +19,12 @@ export default function App() {
     
     setLoading(true);
     chrome.runtime.sendMessage({ type: 'GET_MESSAGES' }, (response) => {
-      if (response && response.success) {
+      if (chrome.runtime.lastError) {
+        setError(`Chrome extension error: ${chrome.runtime.lastError.message}`);
+      } else if (response && response.success) {
         setMessages(response.messages);
+      } else if (response && response.error) {
+        setError(`Failed to sync: ${response.error}`);
       }
       setLoading(false);
     });

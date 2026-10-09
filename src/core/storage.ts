@@ -8,10 +8,10 @@ export class StorageService {
   static async saveMessages(messages: CapturedMessage[]): Promise<void> {
     const existing = await this.getMessages();
     
-    // De-duplicate by ID
-    const messageMap = new Map(existing.map(m => [m.id, m]));
+    // De-duplicate by contentHash so we don't infinitely store the same messages
+    const messageMap = new Map(existing.map(m => [m.contentHash || m.id, m]));
     for (const msg of messages) {
-      messageMap.set(msg.id, msg);
+      messageMap.set(msg.contentHash || msg.id, msg);
     }
     
     const merged = Array.from(messageMap.values());

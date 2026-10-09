@@ -21,16 +21,28 @@ class WhatsAppAdapter extends BaseAdapter {
     const messageNodes = document.querySelectorAll('div.message-in, div.message-out, div[data-id]');
     
     messageNodes.forEach((node) => {
-      // Look for selectable text spans or just get innerText if it's a known text container
-      const textElement = node.querySelector('span.selectable-text, span.copyable-text, span[dir="ltr"]');
       let content = '';
       
-      if (textElement) {
-        content = (textElement as HTMLElement).innerText || '';
-      } else {
-        // Fallback: if we can't find the specific span, just get the text from the node, excluding time/metadata
-        // This is risky but better than nothing for a hackathon demo
-        content = (node as HTMLElement).innerText.split('\n')[0] || '';
+      const textSpan = node.querySelector('.selectable-text, .copyable-text, span[dir="ltr"]');
+      if (textSpan) {
+        content = (textSpan as HTMLElement).innerText || textSpan.textContent || '';
+      }
+      
+      // If we STILL don't have content, WhatsApp might have deeply nested the text
+      if (!content) {
+        const allSpans = node.querySelectorAll('span');
+        for (let i = 0; i < allSpans.length; i++) {
+          const spanText = allSpans[i].textContent || '';
+          if (spanText.length > 3 && !spanText.includes(':')) { // rough heuristic for avoiding timestamps
+            content = spanText;
+            break;
+          }
+        }
+      }
+      
+      if (!content) {
+         // Final absolute fallback: just take the whole node text and clean it
+         content = (node.textContent || '').replace(/[0-9]{1,2}:[0-9]{2}/g, '').trim();
       }
       
       content = content.trim();
