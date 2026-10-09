@@ -1,0 +1,117 @@
+{
+  "../../../@crx/manifest": {
+    "file": "assets/crx-manifest.js-a89rGUda.js",
+    "name": "crx-manifest.js",
+    "src": "../../../@crx/manifest",
+    "isEntry": true
+  },
+  "_BaseAdapter-C2fsMOdL.js": {
+    "file": "assets/BaseAdapter-C2fsMOdL.js",
+    "name": "BaseAdapter"
+  },
+  "_client-BW4HFQ8H.js": {
+    "file": "assets/client-BW4HFQ8H.js",
+    "name": "client"
+  },
+  "_message-schema-1hx2mHKL.js": {
+    "file": "assets/message-schema-1hx2mHKL.js",
+    "name": "message-schema"
+  },
+  "adapter.ts-loader.js": {
+    "file": "assets/adapter.ts-loader-C8XUomYA.js",
+    "src": "adapter.ts-loader.js"
+  },
+  "src/adapters/discord/adapter.ts": {
+    "file": "assets/adapter.ts-D61hPLUU.js",
+    "name": "adapter.ts",
+    "src": "src/adapters/discord/adapter.ts",
+    "isEntry": true,
+    "imports": [
+      "_BaseAdapter-C2fsMOdL.js",
+      "_message-schema-1hx2mHKL.js"
+    ]
+  },
+  "src/adapters/gmail/adapter.ts": {
+    "file": "assets/adapter.ts-DR3Mqrf_.js",
+    "name": "adapter.ts",
+    "src": "src/adapters/gmail/adapter.ts",
+    "isEntry": true,
+    "imports": [
+      "_BaseAdapter-C2fsMOdL.js",
+      "_message-schema-1hx2mHKL.js"
+    ]
+  },
+  "src/adapters/slack/adapter.ts": {
+    "file": "assets/adapter.ts-D33WFtOK.js",
+    "name": "adapter.ts",
+    "src": "src/adapters/slack/adapter.ts",
+    "isEntry": true,
+    "imports": [
+      "_BaseAdapter-C2fsMOdL.js",
+      "_message-schema-1hx2mHKL.js"
+    ]
+  },
+  "src/adapters/teams/adapter.ts": {
+    "file": "assets/adapter.ts-jpjz5wzb.js",
+    "name": "adapter.ts",
+    "src": "src/adapters/teams/adapter.ts",
+    "isEntry": true,
+    "imports": [
+      "_BaseAdapter-C2fsMOdL.js",
+      "_message-schema-1hx2mHKL.js"
+    ]
+  },
+  "src/adapters/telegram/adapter.ts": {
+    "file": "assets/adapter.ts-CDZUnNFX.js",
+    "name": "adapter.ts",
+    "src": "src/adapters/telegram/adapter.ts",
+    "isEntry": true,
+    "imports": [
+      "_BaseAdapter-C2fsMOdL.js",
+      "_message-schema-1hx2mHKL.js"
+    ]
+  },
+  "src/adapters/whatsapp/adapter.ts": {
+    "file": "assets/adapter.ts-DR2Nc6Mi.js",
+    "name": "adapter.ts",
+    "src": "src/adapters/whatsapp/adapter.ts",
+    "isEntry": true,
+    "imports": [
+      "_BaseAdapter-C2fsMOdL.js",
+      "_message-schema-1hx2mHKL.js"
+    ]
+  },
+  "src/background/service-worker.ts": {
+    "file": "assets/service-worker.ts-CmMKVMZK.js",
+    "name": "service-worker.ts",
+    "src": "src/background/service-worker.ts",
+    "isEntry": true,
+    "imports": [
+      "_message-schema-1hx2mHKL.js"
+    ]
+  },
+  "src/options/index.html": {
+    "file": "assets/index.html-BF0npmRO.js",
+    "name": "index.html",
+    "src": "src/options/index.html",
+    "isEntry": true,
+    "imports": [
+      "_client-BW4HFQ8H.js"
+    ],
+    "css": [
+      "assets/index-BPjf-IiC.css"
+    ]
+  },
+  "src/sidepanel/index.html": {
+    "file": "assets/index.html-al5CUAN5.js",
+    "name": "index.html",
+    "src": "src/sidepanel/index.html",
+    "isEntry": true,
+    "imports": [
+      "_client-BW4HFQ8H.js"
+    ],
+    "css": [
+      "assets/index-xZaiteAf.css"
+    ]
+  }
+}

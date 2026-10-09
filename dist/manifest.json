@@ -1,0 +1,150 @@
+{
+  "manifest_version": 3,
+  "name": "CatchUp Universal",
+  "version": "1.0.0",
+  "description": "AI-powered communication catch-up system.",
+  "permissions": [
+    "storage",
+    "sidePanel"
+  ],
+  "host_permissions": [
+    "https://web.whatsapp.com/*",
+    "https://web.telegram.org/*",
+    "https://app.slack.com/*",
+    "https://discord.com/*",
+    "https://teams.microsoft.com/*",
+    "https://mail.google.com/*"
+  ],
+  "background": {
+    "service_worker": "service-worker-loader.js",
+    "type": "module"
+  },
+  "side_panel": {
+    "default_path": "src/sidepanel/index.html"
+  },
+  "options_ui": {
+    "page": "src/options/index.html",
+    "open_in_tab": true
+  },
+  "content_scripts": [
+    {
+      "js": [
+        "assets/adapter.ts-loader-C8XUomYA.js"
+      ],
+      "matches": [
+        "https://web.whatsapp.com/*"
+      ]
+    },
+    {
+      "js": [
+        "assets/adapter.ts-loader-DU2X2OuI.js"
+      ],
+      "matches": [
+        "https://web.telegram.org/*"
+      ]
+    },
+    {
+      "js": [
+        "assets/adapter.ts-loader-CnkVx9x-.js"
+      ],
+      "matches": [
+        "https://app.slack.com/*"
+      ]
+    },
+    {
+      "js": [
+        "assets/adapter.ts-loader-C0eBl6L0.js"
+      ],
+      "matches": [
+        "https://discord.com/*"
+      ]
+    },
+    {
+      "js": [
+        "assets/adapter.ts-loader-_8nT_iKl.js"
+      ],
+      "matches": [
+        "https://teams.microsoft.com/*"
+      ]
+    },
+    {
+      "js": [
+        "assets/adapter.ts-loader-CrweGtB_.js"
+      ],
+      "matches": [
+        "https://mail.google.com/*"
+      ]
+    }
+  ],
+  "action": {
+    "default_title": "Open CatchUp"
+  },
+  "web_accessible_resources": [
+    {
+      "matches": [
+        "https://web.whatsapp.com/*"
+      ],
+      "resources": [
+        "assets/BaseAdapter-C2fsMOdL.js",
+        "assets/message-schema-1hx2mHKL.js",
+        "assets/adapter.ts-DR2Nc6Mi.js"
+      ],
+      "use_dynamic_url": false
+    },
+    {
+      "matches": [
+        "https://web.telegram.org/*"
+      ],
+      "resources": [
+        "assets/BaseAdapter-C2fsMOdL.js",
+        "assets/message-schema-1hx2mHKL.js",
+        "assets/adapter.ts-CDZUnNFX.js"
+      ],
+      "use_dynamic_url": false
+    },
+    {
+      "matches": [
+        "https://app.slack.com/*"
+      ],
+      "resources": [
+        "assets/BaseAdapter-C2fsMOdL.js",
+        "assets/message-schema-1hx2mHKL.js",
+        "assets/adapter.ts-D33WFtOK.js"
+      ],
+      "use_dynamic_url": false
+    },
+    {
+      "matches": [
+        "https://discord.com/*"
+      ],
+      "resources": [
+        "assets/BaseAdapter-C2fsMOdL.js",
+        "assets/message-schema-1hx2mHKL.js",
+        "assets/adapter.ts-D61hPLUU.js"
+      ],
+      "use_dynamic_url": false
+    },
+    {
+      "matches": [
+        "https://teams.microsoft.com/*"
+      ],
+      "resources": [
+        "assets/BaseAdapter-C2fsMOdL.js",
+        "assets/message-schema-1hx2mHKL.js",
+        "assets/adapter.ts-jpjz5wzb.js"
+      ],
+      "use_dynamic_url": false
+    },
+    {
+      "matches": [
+        "https://mail.google.com/*"
+      ],
+      "resources": [
+        "assets/BaseAdapter-C2fsMOdL.js",
+        "assets/message-schema-1hx2mHKL.js",
+        "assets/adapter.ts-DR3Mqrf_.js"
+      ],
+      "use_dynamic_url": false
+    }
+  ]
+}

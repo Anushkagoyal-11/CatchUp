@@ -1,0 +1,55 @@
+{
+  "manifest_version": 3,
+  "name": "CatchUp Universal",
+  "version": "1.0.0",
+  "description": "AI-powered communication catch-up system.",
+  "permissions": ["storage", "sidePanel"],
+  "host_permissions": [
+    "https://web.whatsapp.com/*",
+    "https://web.telegram.org/*",
+    "https://app.slack.com/*",
+    "https://discord.com/*",
+    "https://teams.microsoft.com/*",
+    "https://mail.google.com/*"
+  ],
+  "background": {
+    "service_worker": "src/background/service-worker.ts",
+    "type": "module"
+  },
+  "side_panel": {
+    "default_path": "src/sidepanel/index.html"
+  },
+  "options_ui": {
+    "page": "src/options/index.html",
+    "open_in_tab": true
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://web.whatsapp.com/*"],
+      "js": ["src/adapters/whatsapp/adapter.ts"]
+    },
+    {
+      "matches": ["https://web.telegram.org/*"],
+      "js": ["src/adapters/telegram/adapter.ts"]
+    },
+    {
+      "matches": ["https://app.slack.com/*"],
+      "js": ["src/adapters/slack/adapter.ts"]
+    },
+    {
+      "matches": ["https://discord.com/*"],
+      "js": ["src/adapters/discord/adapter.ts"]
+    },
+    {
+      "matches": ["https://teams.microsoft.com/*"],
+      "js": ["src/adapters/teams/adapter.ts"]
+    },
+    {
+      "matches": ["https://mail.google.com/*"],
+      "js": ["src/adapters/gmail/adapter.ts"]
+    }
+  ],
+  "action": {
+    "default_title": "Open CatchUp"
+  }
+}
