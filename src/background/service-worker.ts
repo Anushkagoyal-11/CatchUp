@@ -36,7 +36,7 @@ class MessageRouter {
     try {
       const { messages, config } = payload;
       const url = config.url || 'http://localhost:11434';
-      const model = config.model || 'llama3.1';
+      const model = config.model || 'qwen2.5-coder:1.5b';
       
       const schemaInstruction = `
         You must respond ONLY with a JSON object that strictly adheres to this schema:

@@ -90,7 +90,7 @@
     ]
   },
   "src/background/service-worker.ts": {
-    "file": "assets/service-worker.ts-o-mLkqsi.js",
+    "file": "assets/service-worker.ts-DuHpNvW9.js",
     "name": "service-worker.ts",
     "src": "src/background/service-worker.ts",
     "isEntry": true,
@@ -111,7 +111,7 @@
     ]
   },
   "src/sidepanel/index.html": {
-    "file": "assets/index.html-CdMZybPl.js",
+    "file": "assets/index.html-LXPcGWvZ.js",
     "name": "index.html",
     "src": "src/sidepanel/index.html",
     "isEntry": true,

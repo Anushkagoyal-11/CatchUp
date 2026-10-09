@@ -88,7 +88,7 @@ async function getOllamaConfig(): Promise<{ url: string | null, model: string | 
   return new Promise((resolve) => {
     if (typeof chrome === 'undefined' || !chrome.storage) {
       // Return defaults if running in web mode (Netlify/Vercel)
-      resolve({ url: 'http://localhost:11434', model: 'llama3.1' });
+      resolve({ url: 'http://localhost:11434', model: 'qwen2.5-coder:1.5b' });
       return;
     }
     
