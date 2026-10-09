@@ -80,7 +80,24 @@ class MessageRouter {
       }
 
       const data = await response.json();
-      return { success: true, summary: JSON.parse(data.message.content) };
+      const rawText = data.message.content;
+      
+      let parsed;
+      try {
+        parsed = JSON.parse(rawText);
+        // If it parsed but is missing 'overview', just dump the raw text so we can read it
+        if (!parsed.overview && !parsed.actionItems) {
+          parsed = { overview: "Raw Output: " + rawText, actionItems: [], deadlines: [] };
+        }
+      } catch (e) {
+        // If it failed to parse as JSON, just shove the whole text into overview
+        parsed = {
+          overview: rawText,
+          actionItems: [],
+          deadlines: []
+        };
+      }
+      return { success: true, summary: parsed };
     } catch (error) {
       return { success: false, error: String(error) };
     }
