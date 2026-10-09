@@ -90,7 +90,7 @@
     ]
   },
   "src/background/service-worker.ts": {
-    "file": "assets/service-worker.ts-CGDyXF9w.js",
+    "file": "assets/service-worker.ts-DIX7uT6C.js",
     "name": "service-worker.ts",
     "src": "src/background/service-worker.ts",
     "isEntry": true,

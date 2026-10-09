@@ -38,25 +38,12 @@ class MessageRouter {
       const url = config.url || 'http://localhost:11434';
       const model = config.model || 'qwen2.5-coder:1.5b';
       
-      const schemaInstruction = `
-        You must respond ONLY with a JSON object that strictly adheres to this schema:
-        {
-          "overview": "string",
-          "actionItems": [{ "description": "string", "sourceIds": ["string"] }],
-          "decisions": [{ "description": "string", "sourceIds": ["string"] }],
-          "directRequests": [{ "description": "string", "sourceIds": ["string"] }],
-          "deadlines": [{ "description": "string", "date": "string or null", "sourceIds": ["string"] }],
-          "itemsToVerify": [{ "description": "string", "sourceIds": ["string"] }],
-          "uncertainties": [{ "description": "string", "sourceIds": ["string"] }]
-        }
-      `;
-
       const prompt = `
-        Analyze the following recent unread messages and provide a structured summary.
-        Identify action items, decisions, direct requests, deadlines, and items needing verification.
+        Summarize the following chat messages. Extract the key points, decisions, and any action items.
+        Keep it concise and readable.
         
         Messages:
-        ${messages.map(m => `[ID: ${m.id}] [${m.platform}] ${m.senderName}: ${m.content}`).join('\n')}
+        ${messages.map(m => `[${m.senderName}]: ${m.content}`).join('\n')}
       `;
 
       const response = await fetch(`${url}/api/chat`, {
@@ -67,11 +54,10 @@ class MessageRouter {
         body: JSON.stringify({
           model: model,
           messages: [
-            { role: 'system', content: `You are an intelligent communication assistant. ${schemaInstruction}` },
+            { role: 'system', content: `You are an AI assistant that summarizes chat messages.` },
             { role: 'user', content: prompt }
           ],
-          stream: false,
-          format: 'json'
+          stream: false
         })
       });
 
