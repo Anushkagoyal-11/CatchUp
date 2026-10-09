@@ -200,9 +200,9 @@ export default function App() {
           <div className="card-title" style={{ color: 'var(--success)', display: 'flex', alignItems: 'center' }}>
             <CheckCircle2 size={16} style={{ marginRight: '6px' }} /> AI Summary Ready
           </div>
-          <div style={{ fontSize: '0.9rem' }}>{summary.overview}</div>
+          <div style={{ fontSize: '0.9rem' }}>{summary.overview || "No overview provided."}</div>
           
-          {summary.actionItems.length > 0 && (
+          {(summary.actionItems?.length || 0) > 0 && (
             <div className="summary-section">
               <h3>Action Items</h3>
               <ul className="summary-list">
@@ -211,7 +211,7 @@ export default function App() {
             </div>
           )}
 
-          {summary.deadlines.length > 0 && (
+          {(summary.deadlines?.length || 0) > 0 && (
             <div className="summary-section">
               <h3>Deadlines</h3>
               <ul className="summary-list">
