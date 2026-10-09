@@ -24,7 +24,66 @@ class MessageRouter {
       return true;
     }
 
+    if (message.type === 'GENERATE_SUMMARY') {
+      this.handleGenerateSummary(message.payload).then(sendResponse);
+      return true;
+    }
+
     return false;
+  }
+
+  private async handleGenerateSummary(payload: { messages: any[], config: any }) {
+    try {
+      const { messages, config } = payload;
+      const url = config.url || 'http://localhost:11434';
+      const model = config.model || 'llama3.1';
+      
+      const schemaInstruction = `
+        You must respond ONLY with a JSON object that strictly adheres to this schema:
+        {
+          "overview": "string",
+          "actionItems": [{ "description": "string", "sourceIds": ["string"] }],
+          "decisions": [{ "description": "string", "sourceIds": ["string"] }],
+          "directRequests": [{ "description": "string", "sourceIds": ["string"] }],
+          "deadlines": [{ "description": "string", "date": "string or null", "sourceIds": ["string"] }],
+          "itemsToVerify": [{ "description": "string", "sourceIds": ["string"] }],
+          "uncertainties": [{ "description": "string", "sourceIds": ["string"] }]
+        }
+      `;
+
+      const prompt = `
+        Analyze the following recent unread messages and provide a structured summary.
+        Identify action items, decisions, direct requests, deadlines, and items needing verification.
+        
+        Messages:
+        ${messages.map(m => `[ID: ${m.id}] [${m.platform}] ${m.senderName}: ${m.content}`).join('\n')}
+      `;
+
+      const response = await fetch(`${url}/api/chat`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: model,
+          messages: [
+            { role: 'system', content: `You are an intelligent communication assistant. ${schemaInstruction}` },
+            { role: 'user', content: prompt }
+          ],
+          stream: false,
+          format: 'json'
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Ollama API returned ${response.status}: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      return { success: true, summary: JSON.parse(data.message.content) };
+    } catch (error) {
+      return { success: false, error: String(error) };
+    }
   }
 
   private async handleSyncMessages(rawMessages: any[]) {

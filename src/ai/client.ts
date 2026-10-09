@@ -27,33 +27,48 @@ export async function generateAISummary(messages: CapturedMessage[]): Promise<AI
   `;
 
   try {
-    const response = await fetch(`${url}/api/chat`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        model: model,
-        messages: [
-          { role: 'system', content: `You are an intelligent communication assistant. ${schemaInstruction}` },
-          { role: 'user', content: prompt }
-        ],
-        stream: false,
-        format: 'json'
-      })
-    });
+    if (typeof chrome !== 'undefined' && chrome.runtime) {
+      // In Extension Mode, proxy the request through the background script to completely bypass CORS
+      return new Promise((resolve, reject) => {
+        chrome.runtime.sendMessage({
+          type: 'GENERATE_SUMMARY',
+          payload: { messages, config }
+        }, (response) => {
+          if (chrome.runtime.lastError) {
+            reject(new Error(`Chrome extension error: ${chrome.runtime.lastError.message}`));
+          } else if (response && response.success) {
+            resolve(response.summary as AISummary);
+          } else {
+            reject(new Error(response?.error || 'Unknown error from background script'));
+          }
+        });
+      });
+    } else {
+      // Web Demo Mode (Netlify) - we must make the fetch request directly from the browser.
+      // This requires the user to have configured OLLAMA_ORIGINS="*" when starting Ollama.
+      const response = await fetch(`${url}/api/chat`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: model,
+          messages: [
+            { role: 'system', content: `You are an intelligent communication assistant. ${schemaInstruction}` },
+            { role: 'user', content: prompt }
+          ],
+          stream: false,
+          format: 'json'
+        })
+      });
 
-    if (!response.ok) {
-      throw new Error(`Ollama API returned ${response.status}: ${response.statusText}`);
+      if (!response.ok) {
+        throw new Error(`Ollama API returned ${response.status}: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      return JSON.parse(data.message.content) as AISummary;
     }
-
-    const data = await response.json();
-    const rawContent = data.message.content;
-    const parsed = JSON.parse(rawContent);
-    
-    // In a real app we'd validate with Zod here before returning
-    return parsed as AISummary;
-    
   } catch (err) {
     console.warn('Failed to generate summary with Ollama, falling back to mock summary for testing.', err);
     // Fallback Mock Summary so the app never totally crashes in demos
