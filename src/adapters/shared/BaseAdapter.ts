@@ -15,8 +15,12 @@ export abstract class BaseAdapter implements PlatformAdapter {
     
     console.log(`[CatchUp] Initializing ${this.platformName} adapter...`);
     
-    // Set up a mutation observer to watch for DOM changes
-    this.observer = new MutationObserver(() => this.handleDOMChange());
+    let timeoutId: any = null;
+    this.observer = new MutationObserver(() => {
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => this.handleDOMChange(), 1000); // 1 second debounce
+    });
+    
     this.observer.observe(document.body, {
       childList: true,
       subtree: true,

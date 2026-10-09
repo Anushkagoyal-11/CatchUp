@@ -29,7 +29,7 @@
   "content_scripts": [
     {
       "js": [
-        "assets/adapter.ts-loader-yGO3R7ax.js"
+        "assets/adapter.ts-loader-BHhRneti.js"
       ],
       "matches": [
         "https://web.whatsapp.com/*"
@@ -37,7 +37,7 @@
     },
     {
       "js": [
-        "assets/adapter.ts-loader-DeyMgNUA.js"
+        "assets/adapter.ts-loader-TJmRUj3J.js"
       ],
       "matches": [
         "https://web.telegram.org/*"
@@ -45,7 +45,7 @@
     },
     {
       "js": [
-        "assets/adapter.ts-loader-BVnVCc_j.js"
+        "assets/adapter.ts-loader-DAvV1G2g.js"
       ],
       "matches": [
         "https://app.slack.com/*"
@@ -53,7 +53,7 @@
     },
     {
       "js": [
-        "assets/adapter.ts-loader-uJ6GMTlQ.js"
+        "assets/adapter.ts-loader-DDJqUssT.js"
       ],
       "matches": [
         "https://discord.com/*"
@@ -61,7 +61,7 @@
     },
     {
       "js": [
-        "assets/adapter.ts-loader-fnwoGA0X.js"
+        "assets/adapter.ts-loader-DP5CW3kA.js"
       ],
       "matches": [
         "https://teams.microsoft.com/*"
@@ -69,7 +69,7 @@
     },
     {
       "js": [
-        "assets/adapter.ts-loader-B99hBTJQ.js"
+        "assets/adapter.ts-loader-BlX00KXw.js"
       ],
       "matches": [
         "https://mail.google.com/*"
@@ -85,9 +85,9 @@
         "https://web.whatsapp.com/*"
       ],
       "resources": [
-        "assets/BaseAdapter-BK93RzXd.js",
+        "assets/BaseAdapter-Dl4brJyi.js",
         "assets/message-schema-1hx2mHKL.js",
-        "assets/adapter.ts-CT6pgnVO.js"
+        "assets/adapter.ts-Cs26vrGD.js"
       ],
       "use_dynamic_url": false
     },
@@ -96,9 +96,9 @@
         "https://web.telegram.org/*"
       ],
       "resources": [
-        "assets/BaseAdapter-BK93RzXd.js",
+        "assets/BaseAdapter-Dl4brJyi.js",
         "assets/message-schema-1hx2mHKL.js",
-        "assets/adapter.ts-D8UfO3jF.js"
+        "assets/adapter.ts-Z6SGDr7a.js"
       ],
       "use_dynamic_url": false
     },
@@ -107,9 +107,9 @@
         "https://app.slack.com/*"
       ],
       "resources": [
-        "assets/BaseAdapter-BK93RzXd.js",
+        "assets/BaseAdapter-Dl4brJyi.js",
         "assets/message-schema-1hx2mHKL.js",
-        "assets/adapter.ts-CW9aIIGd.js"
+        "assets/adapter.ts-BxENCSNa.js"
       ],
       "use_dynamic_url": false
     },
@@ -118,9 +118,9 @@
         "https://discord.com/*"
       ],
       "resources": [
-        "assets/BaseAdapter-BK93RzXd.js",
+        "assets/BaseAdapter-Dl4brJyi.js",
         "assets/message-schema-1hx2mHKL.js",
-        "assets/adapter.ts-BbMvCgyb.js"
+        "assets/adapter.ts-Clk0rFeO.js"
       ],
       "use_dynamic_url": false
     },
@@ -129,9 +129,9 @@
         "https://teams.microsoft.com/*"
       ],
       "resources": [
-        "assets/BaseAdapter-BK93RzXd.js",
+        "assets/BaseAdapter-Dl4brJyi.js",
         "assets/message-schema-1hx2mHKL.js",
-        "assets/adapter.ts-SCG64HUJ.js"
+        "assets/adapter.ts-ChfZVO6C.js"
       ],
       "use_dynamic_url": false
     },
@@ -140,9 +140,9 @@
         "https://mail.google.com/*"
       ],
       "resources": [
-        "assets/BaseAdapter-BK93RzXd.js",
+        "assets/BaseAdapter-Dl4brJyi.js",
         "assets/message-schema-1hx2mHKL.js",
-        "assets/adapter.ts-B2veMW1a.js"
+        "assets/adapter.ts-DkxqP9WX.js"
       ],
       "use_dynamic_url": false
     }

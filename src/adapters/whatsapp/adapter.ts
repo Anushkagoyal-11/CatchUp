@@ -18,7 +18,7 @@ class WhatsAppAdapter extends BaseAdapter {
     const messages: CapturedMessage[] = [];
     
     // WhatsApp Web bubble selectors
-    const messageNodes = document.querySelectorAll('div.message-in, div.message-out, div[data-id]');
+    const messageNodes = document.querySelectorAll('div.message-in, div.message-out, div[data-id], div[role="row"]');
     
     messageNodes.forEach((node) => {
       let content = '';
