@@ -71,6 +71,12 @@ export async function generateAISummary(messages: CapturedMessage[]): Promise<AI
 
 async function getOllamaConfig(): Promise<{ url: string | null, model: string | null }> {
   return new Promise((resolve) => {
+    if (typeof chrome === 'undefined' || !chrome.storage) {
+      // Return defaults if running in web mode (Netlify/Vercel)
+      resolve({ url: 'http://localhost:11434', model: 'llama3.1' });
+      return;
+    }
+    
     chrome.storage.sync.get(['ollama_url', 'ollama_model'], (result) => {
       resolve({
         url: result.ollama_url || null,
