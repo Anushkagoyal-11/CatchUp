@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CatchUp Universal - Web Dashboard</title>
+    <style>
+      body {
+        margin: 0;
+        background-color: #0f172a;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-image: radial-gradient(circle at 50% -20%, #312e81, #0f172a 60%);
+        font-family: 'Inter', -apple-system, sans-serif;
+      }
+      #root {
+        width: 100%;
+        max-width: 400px;
+        height: 600px;
+        background: rgba(30, 41, 59, 0.4);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      }
+      .web-header {
+        position: absolute;
+        top: 20px;
+        text-align: center;
+        width: 100%;
+        pointer-events: none;
+      }
+      .web-header h1 {
+        margin: 0;
+        font-size: 2rem;
+        background: linear-gradient(to right, #818cf8, #c084fc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .web-header p {
+        color: #cbd5e1;
+        margin-top: 8px;
+        font-size: 0.9rem;
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/main-BPaOw_Zj.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/main-DfomhAxe.css">
+  </head>
+  <body>
+    <div class="web-header">
+      <h1>CatchUp Universal</h1>
+      <p>Interactive Web Demo (Mock Data Mode)</p>
+    </div>
+    <div id="root"></div>
+  </body>
+</html>

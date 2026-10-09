@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { MessageSquare, RefreshCw, CheckCircle2 } from 'lucide-react';
-import type { CapturedMessage, AISummary } from '../core/message-schema';
+import { CapturedMessage, AISummary, UnreadStatus } from '../core/message-schema';
 import { generateAISummary } from '../ai/client';
 import './index.css';
 
@@ -17,13 +17,13 @@ export default function App() {
       setTimeout(() => {
         setMessages([
           {
-            id: '1', platform: 'Slack', conversationId: 'c1', conversationName: '#engineering', senderId: 'u1', senderName: 'Alice (Manager)', timestamp: new Date().toISOString(), capturedAt: new Date().toISOString(), content: 'We need the final presentation slides submitted by 3 PM today. Please review the current deck and leave comments.', contentType: 'text', direction: 'incoming', accessibilityStatus: 'visible', unreadStatus: 1, unreadEvidence: null, unreadConfidence: 1, sourceUrl: '', extractionMethod: 'mock', contentHash: '1', schemaVersion: 1
+            id: '1', platform: 'Slack', conversationId: 'c1', conversationName: '#engineering', senderId: 'u1', senderName: 'Alice (Manager)', timestamp: new Date().toISOString(), capturedAt: new Date().toISOString(), content: 'We need the final presentation slides submitted by 3 PM today. Please review the current deck and leave comments.', contentType: 'text', direction: 'incoming', accessibilityStatus: 'visible', unreadStatus: UnreadStatus.UNKNOWN, unreadEvidence: null, unreadConfidence: 1, sourceUrl: '', extractionMethod: 'mock', contentHash: '1', schemaVersion: 1
           },
           {
-            id: '2', platform: 'WhatsApp', conversationId: 'c2', conversationName: 'Design Sync', senderId: 'u2', senderName: 'Bob (Designer)', timestamp: new Date().toISOString(), capturedAt: new Date().toISOString(), content: 'I updated the UI mockups. It looks much better now. Did you guys approve the new layout?', contentType: 'text', direction: 'incoming', accessibilityStatus: 'visible', unreadStatus: 1, unreadEvidence: null, unreadConfidence: 1, sourceUrl: '', extractionMethod: 'mock', contentHash: '2', schemaVersion: 1
+            id: '2', platform: 'WhatsApp', conversationId: 'c2', conversationName: 'Design Sync', senderId: 'u2', senderName: 'Bob (Designer)', timestamp: new Date().toISOString(), capturedAt: new Date().toISOString(), content: 'I updated the UI mockups. It looks much better now. Did you guys approve the new layout?', contentType: 'text', direction: 'incoming', accessibilityStatus: 'visible', unreadStatus: UnreadStatus.UNKNOWN, unreadEvidence: null, unreadConfidence: 1, sourceUrl: '', extractionMethod: 'mock', contentHash: '2', schemaVersion: 1
           },
           {
-            id: '3', platform: 'Discord', conversationId: 'c3', conversationName: 'Gaming Buddies', senderId: 'u3', senderName: 'Charlie', timestamp: new Date().toISOString(), capturedAt: new Date().toISOString(), content: 'Are we still on for tonight at 8 PM?', contentType: 'text', direction: 'incoming', accessibilityStatus: 'visible', unreadStatus: 1, unreadEvidence: null, unreadConfidence: 1, sourceUrl: '', extractionMethod: 'mock', contentHash: '3', schemaVersion: 1
+            id: '3', platform: 'Discord', conversationId: 'c3', conversationName: 'Gaming Buddies', senderId: 'u3', senderName: 'Charlie', timestamp: new Date().toISOString(), capturedAt: new Date().toISOString(), content: 'Are we still on for tonight at 8 PM?', contentType: 'text', direction: 'incoming', accessibilityStatus: 'visible', unreadStatus: UnreadStatus.UNKNOWN, unreadEvidence: null, unreadConfidence: 1, sourceUrl: '', extractionMethod: 'mock', contentHash: '3', schemaVersion: 1
           }
         ]);
         setLoading(false);

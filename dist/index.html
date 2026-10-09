@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CatchUp Universal - AI Chrome Extension</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --text: #f8fafc;
+      --accent: #6366f1;
+      --card: rgba(30, 41, 59, 0.7);
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      background-image: radial-gradient(circle at 50% -20%, #312e81, #0f172a 60%);
+    }
+    .container {
+      max-width: 800px;
+      padding: 2rem;
+      background: var(--card);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      animation: slideUp 0.6s ease-out forwards;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(to right, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: #cbd5e1;
+      margin-bottom: 2rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: var(--accent);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .btn:hover {
+      background-color: #4f46e5;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
+    }
+    .notice {
+      margin-top: 2rem;
+      padding: 1rem;
+      border-radius: 8px;
+      background-color: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      color: #fca5a5;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>CatchUp Universal 🚀</h1>
+    <p>
+      You've reached the deployment page for the CatchUp Chrome Extension!<br>
+      <strong>CatchUp is a browser extension, not a website.</strong> It runs locally in your browser to summarize your Slack, WhatsApp, and Teams messages privately using AI.
+    </p>
+    
+    <a href="https://github.com/Anushkagoyal-11/CatchUp" class="btn" target="_blank">
+      View Source on GitHub
+    </a>
+    
+    <div class="notice">
+      <strong>Attention Evaluators:</strong> To test this project, please clone the GitHub repository and load it into Chrome via <code>chrome://extensions</code> (Developer Mode). It cannot be run as a standard webpage.
+    </div>
+  </div>
+</body>
+</html>
