@@ -17,15 +17,24 @@ class WhatsAppAdapter extends BaseAdapter {
   extractVisibleMessages(): CapturedMessage[] {
     const messages: CapturedMessage[] = [];
     
-    // Simplistic selector for message bubbles in WhatsApp Web
-    const messageNodes = document.querySelectorAll('div.message-in, div.message-out');
+    // WhatsApp Web bubble selectors
+    const messageNodes = document.querySelectorAll('div.message-in, div.message-out, div[data-id]');
     
     messageNodes.forEach((node) => {
-      const contentNode = node.querySelector('.copyable-text');
-      if (!contentNode) return;
+      // Look for selectable text spans or just get innerText if it's a known text container
+      const textElement = node.querySelector('span.selectable-text, span.copyable-text, span[dir="ltr"]');
+      let content = '';
       
-      const content = (contentNode.querySelector('span[dir="ltr"]') as HTMLElement)?.innerText || '';
-      if (!content) return;
+      if (textElement) {
+        content = (textElement as HTMLElement).innerText || '';
+      } else {
+        // Fallback: if we can't find the specific span, just get the text from the node, excluding time/metadata
+        // This is risky but better than nothing for a hackathon demo
+        content = (node as HTMLElement).innerText.split('\n')[0] || '';
+      }
+      
+      content = content.trim();
+      if (!content || content.length < 2) return; // Skip empty or tiny artifacts
 
       const isIncoming = node.classList.contains('message-in');
       

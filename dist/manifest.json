@@ -29,7 +29,7 @@
   "content_scripts": [
     {
       "js": [
-        "assets/adapter.ts-loader-Dp6Z80kw.js"
+        "assets/adapter.ts-loader-DSgQZSlG.js"
       ],
       "matches": [
         "https://web.whatsapp.com/*"
@@ -87,7 +87,7 @@
       "resources": [
         "assets/BaseAdapter-71Z4Ok0B.js",
         "assets/message-schema-1hx2mHKL.js",
-        "assets/adapter.ts-ISQPzGzh.js"
+        "assets/adapter.ts-CwPjXbG9.js"
       ],
       "use_dynamic_url": false
     },

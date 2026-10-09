@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { MessageSquare, RefreshCw, CheckCircle2, Plus } from 'lucide-react';
+import { MessageSquare, RefreshCw, CheckCircle2, Plus, Upload } from 'lucide-react';
 import { CapturedMessage, AISummary, UnreadStatus } from '../core/message-schema';
 import { generateAISummary } from '../ai/client';
 import './index.css';
@@ -33,16 +33,21 @@ export default function App() {
   const handleAddDemoMessage = () => {
     if (!demoInput.trim()) return;
     
+    addManualMessage(demoInput);
+    setDemoInput('');
+  };
+
+  const addManualMessage = (text: string, source: string = 'Evaluator') => {
     const newMsg: CapturedMessage = {
       id: crypto.randomUUID(),
       platform: 'Web Demo',
       conversationId: 'demo',
       conversationName: 'Dynamic Chat',
       senderId: 'demo_user',
-      senderName: 'Evaluator',
+      senderName: source,
       timestamp: new Date().toISOString(),
       capturedAt: new Date().toISOString(),
-      content: demoInput,
+      content: text,
       contentType: 'text',
       direction: 'incoming',
       accessibilityStatus: 'visible',
@@ -56,7 +61,38 @@ export default function App() {
     };
     
     setMessages(prev => [newMsg, ...prev]);
-    setDemoInput('');
+  };
+
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    try {
+      if (file.name.endsWith('.zip')) {
+        const JSZip = (await import('jszip')).default;
+        const zip = await JSZip.loadAsync(file);
+        
+        let foundTxt = false;
+        for (const [filename, fileData] of Object.entries(zip.files)) {
+          if (filename.endsWith('.txt')) {
+            const text = await fileData.async('string');
+            // Add chunks or lines
+            const lines = text.split('\n').filter(l => l.trim().length > 0).slice(-20); // last 20 lines for demo
+            addManualMessage(`[From ZIP ${filename}]:\n${lines.join('\n')}`, 'ZIP Upload');
+            foundTxt = true;
+          }
+        }
+        if (!foundTxt) setError('No .txt files found inside the ZIP.');
+      } else if (file.name.endsWith('.txt')) {
+        const text = await file.text();
+        const lines = text.split('\n').filter(l => l.trim().length > 0).slice(-20);
+        addManualMessage(`[From TXT]:\n${lines.join('\n')}`, 'TXT Upload');
+      } else {
+        setError('Please upload a .zip or .txt file');
+      }
+    } catch (err) {
+      setError(`Failed to process file: ${err}`);
+    }
   };
 
   const handleGenerateSummary = async () => {
@@ -103,6 +139,10 @@ export default function App() {
             <button className="button" style={{ width: 'auto', padding: '8px 12px' }} onClick={handleAddDemoMessage}>
               <Plus size={16} />
             </button>
+            <label className="button" style={{ width: 'auto', padding: '8px 12px', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+              <Upload size={16} />
+              <input type="file" accept=".zip,.txt" style={{ display: 'none' }} onChange={handleFileUpload} />
+            </label>
           </div>
         </div>
       )}

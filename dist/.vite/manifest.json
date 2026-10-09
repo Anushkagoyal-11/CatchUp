@@ -9,16 +9,24 @@
     "file": "assets/BaseAdapter-71Z4Ok0B.js",
     "name": "BaseAdapter"
   },
-  "_client-BW4HFQ8H.js": {
-    "file": "assets/client-BW4HFQ8H.js",
+  "_client-Bli3Ac1C.js": {
+    "file": "assets/client-Bli3Ac1C.js",
     "name": "client"
+  },
+  "_jszip.min-DY46-47L.js": {
+    "file": "assets/jszip.min-DY46-47L.js",
+    "name": "jszip.min",
+    "isDynamicEntry": true,
+    "imports": [
+      "_client-Bli3Ac1C.js"
+    ]
   },
   "_message-schema-1hx2mHKL.js": {
     "file": "assets/message-schema-1hx2mHKL.js",
     "name": "message-schema"
   },
   "adapter.ts-loader.js": {
-    "file": "assets/adapter.ts-loader-Dp6Z80kw.js",
+    "file": "assets/adapter.ts-loader-DSgQZSlG.js",
     "src": "adapter.ts-loader.js"
   },
   "src/adapters/discord/adapter.ts": {
@@ -72,7 +80,7 @@
     ]
   },
   "src/adapters/whatsapp/adapter.ts": {
-    "file": "assets/adapter.ts-ISQPzGzh.js",
+    "file": "assets/adapter.ts-CwPjXbG9.js",
     "name": "adapter.ts",
     "src": "src/adapters/whatsapp/adapter.ts",
     "isEntry": true,
@@ -91,25 +99,28 @@
     ]
   },
   "src/options/index.html": {
-    "file": "assets/index.html-BF0npmRO.js",
+    "file": "assets/index.html-Bi24ckgU.js",
     "name": "index.html",
     "src": "src/options/index.html",
     "isEntry": true,
     "imports": [
-      "_client-BW4HFQ8H.js"
+      "_client-Bli3Ac1C.js"
     ],
     "css": [
       "assets/index-BPjf-IiC.css"
     ]
   },
   "src/sidepanel/index.html": {
-    "file": "assets/index.html-Cw_odT_N.js",
+    "file": "assets/index.html-DSfDnyxA.js",
     "name": "index.html",
     "src": "src/sidepanel/index.html",
     "isEntry": true,
     "imports": [
-      "_client-BW4HFQ8H.js",
+      "_client-Bli3Ac1C.js",
       "_message-schema-1hx2mHKL.js"
+    ],
+    "dynamicImports": [
+      "_jszip.min-DY46-47L.js"
     ],
     "css": [
       "assets/index-DfomhAxe.css"
