@@ -15,9 +15,28 @@ export default function App() {
   const [demoInput, setDemoInput] = useState('');
 
   const fetchMessages = () => {
-    if (isWebMode) return; // In web mode, we rely on manual input
+    if (isWebMode) return;
     
     setLoading(true);
+    
+    // First, try to force the active tab to extract messages NOW
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      const activeTab = tabs[0];
+      if (activeTab && activeTab.id) {
+        chrome.tabs.sendMessage(activeTab.id, { type: 'FORCE_EXTRACT' }, () => {
+          // Ignore errors if the tab doesn't have our content script
+          chrome.runtime.lastError; 
+          
+          // Wait 500ms for extraction to hit background script, then get them
+          setTimeout(getMessagesFromBackground, 500);
+        });
+      } else {
+        getMessagesFromBackground();
+      }
+    });
+  };
+
+  const getMessagesFromBackground = () => {
     chrome.runtime.sendMessage({ type: 'GET_MESSAGES' }, (response) => {
       if (chrome.runtime.lastError) {
         setError(`Chrome extension error: ${chrome.runtime.lastError.message}`);

@@ -1,45 +1,63 @@
-# CatchUp Universal Chrome Extension
+# CatchUp AI Prompt Engineering
 
-## ROLE AND MISSION
-Act as a principal software engineer specializing in Chrome Extensions, TypeScript, browser security, AI applications, frontend engineering, and automated testing.
-Build CatchUp Universal, a robust AI-powered communication catch-up system delivered as a Chrome Extension using Manifest V3.
+This document outlines the core prompts and system instructions used by the CatchUp AI Engine to summarize communication streams. 
 
-## 1. PRODUCT VISION
-People use multiple communication platforms throughout the day. Important decisions, deadlines, requests, meeting updates, and action items become scattered across conversations.
-CatchUp Universal provides one dashboard that helps users understand what they missed and what they need to do.
+The AI interactions are currently driven by a local LLM (e.g., Llama 3.1) via the Ollama API, allowing complete privacy for sensitive communication data.
 
-The product answers:
-- What happened across my accessible conversations?
-- Which items have a verified or suspected unread indicator?
-- What requires my attention?
-- What decisions were made?
-- What tasks were assigned to me?
-- What deadlines were explicitly mentioned?
-- Which messages require a reply or verification?
-- Which items are uncertain and require human review?
+---
 
-The extension distinguishes actual extracted facts from AI inferences.
+## 1. System Instruction
 
-## 2. TARGET PLATFORMS
-Implement platform-specific integrations for:
-- WhatsApp Web — https://web.whatsapp.com/
-- Telegram Web — https://web.telegram.org/
-- Slack — https://app.slack.com/
-- Discord — https://discord.com/
-- Microsoft Teams — https://teams.microsoft.com/
-- Gmail — https://mail.google.com/
+The System Instruction primes the LLM for its role and rigidly enforces the expected output format. We use strict JSON formatting constraints because the output needs to be immediately mapped to our TypeScript schemas (`AISummary` interface).
 
-## 3. ARCHITECTURE OVERVIEW
-- **Manifest V3 Core**: Use service workers, declarativeNetRequest (if needed), and content scripts.
-- **Content Scripts (Adapters)**: DOM observers that extract data from each messaging platform safely without disrupting the user experience.
-- **Background Worker**: Central message router and state manager.
-- **Local Storage Database**: Deduplicates and safely stores extracted unread messages.
-- **Side Panel UI (React/Vite)**: A persistent dashboard built with React, Vite, TypeScript, and premium CSS styling.
-- **AI Processing (Ollama)**: Local AI summarization pipeline querying Ollama (llama3.1) at `http://localhost:11434` to ensure privacy and avoid API costs.
-- **Strict Zod Schemas**: Guarantees type safety for captured messages and AI summary structures.
+**Role & Schema Definition:**
+```text
+You are an intelligent communication assistant. 
 
-## 4. CURRENT STATE
-- Built with Vite, React, and TypeScript (`@crxjs/vite-plugin`).
-- Secure Options page for AI model configuration.
-- Vitest test suite for schema validation.
-- Deployed locally to the Chrome Browser.
+You must respond ONLY with a JSON object that strictly adheres to this schema:
+{
+  "overview": "string",
+  "actionItems": [{ "description": "string", "sourceIds": ["string"] }],
+  "decisions": [{ "description": "string", "sourceIds": ["string"] }],
+  "directRequests": [{ "description": "string", "sourceIds": ["string"] }],
+  "deadlines": [{ "description": "string", "date": "string or null", "sourceIds": ["string"] }],
+  "itemsToVerify": [{ "description": "string", "sourceIds": ["string"] }],
+  "uncertainties": [{ "description": "string", "sourceIds": ["string"] }]
+}
+```
+
+---
+
+## 2. Dynamic User Prompt
+
+The User Prompt is dynamically generated based on the active messages captured from the DOM (WhatsApp, Slack, etc.). The prompt injects contextual metadata (`platform`, `senderName`, `id`) into the text so the LLM can trace decisions and action items back to specific messages (using `sourceIds`).
+
+**Template:**
+```text
+Analyze the following recent unread messages and provide a structured summary.
+Identify action items, decisions, direct requests, deadlines, and items needing verification.
+
+Messages:
+[ID: <uuid>] [<Platform>] <Sender>: <Message Content>
+[ID: <uuid>] [<Platform>] <Sender>: <Message Content>
+...
+```
+
+**Example Instantiation:**
+```text
+Analyze the following recent unread messages and provide a structured summary.
+Identify action items, decisions, direct requests, deadlines, and items needing verification.
+
+Messages:
+[ID: 1a2b3c] [WhatsApp] Alice: Did you finish the deployment script?
+[ID: 4d5e6f] [WhatsApp] Alice: We need it by 5 PM tomorrow for the hackathon judging.
+[ID: 7g8h9i] [WhatsApp] Bob: I'm almost done, just debugging a CORS issue.
+```
+
+---
+
+## 3. Why This Structure?
+
+1. **Deterministic UI Rendering:** By forcing a strict JSON schema, the frontend React Dashboard can map directly over `summary.actionItems` and `summary.deadlines` to render individual task cards.
+2. **Context Traceability:** Injecting `sourceIds` allows us to eventually build features where clicking on an Action Item in the dashboard highlights the exact WhatsApp message that created it.
+3. **Local Privacy:** The prompt is kept intentionally concise to ensure it runs quickly and efficiently on local, lower-parameter models (like `llama3.1:8b`) without requiring a cloud API key.

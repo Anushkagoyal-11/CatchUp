@@ -1,12 +1,12 @@
 {
   "../../../@crx/manifest": {
-    "file": "assets/crx-manifest.js-a89rGUda.js",
+    "file": "assets/crx-manifest.js-CNAOGf1Z.js",
     "name": "crx-manifest.js",
     "src": "../../../@crx/manifest",
     "isEntry": true
   },
-  "_BaseAdapter-Dl4brJyi.js": {
-    "file": "assets/BaseAdapter-Dl4brJyi.js",
+  "_BaseAdapter-BVPgsV5Q.js": {
+    "file": "assets/BaseAdapter-BVPgsV5Q.js",
     "name": "BaseAdapter"
   },
   "_client-Bli3Ac1C.js": {
@@ -26,66 +26,66 @@
     "name": "message-schema"
   },
   "adapter.ts-loader.js": {
-    "file": "assets/adapter.ts-loader-BHhRneti.js",
+    "file": "assets/adapter.ts-loader-D-lKQWdu.js",
     "src": "adapter.ts-loader.js"
   },
   "src/adapters/discord/adapter.ts": {
-    "file": "assets/adapter.ts-Clk0rFeO.js",
+    "file": "assets/adapter.ts-CwvI5oUv.js",
     "name": "adapter.ts",
     "src": "src/adapters/discord/adapter.ts",
     "isEntry": true,
     "imports": [
-      "_BaseAdapter-Dl4brJyi.js",
+      "_BaseAdapter-BVPgsV5Q.js",
       "_message-schema-1hx2mHKL.js"
     ]
   },
   "src/adapters/gmail/adapter.ts": {
-    "file": "assets/adapter.ts-DkxqP9WX.js",
+    "file": "assets/adapter.ts-DrF8Ei5d.js",
     "name": "adapter.ts",
     "src": "src/adapters/gmail/adapter.ts",
     "isEntry": true,
     "imports": [
-      "_BaseAdapter-Dl4brJyi.js",
+      "_BaseAdapter-BVPgsV5Q.js",
       "_message-schema-1hx2mHKL.js"
     ]
   },
   "src/adapters/slack/adapter.ts": {
-    "file": "assets/adapter.ts-BxENCSNa.js",
+    "file": "assets/adapter.ts-CvMu5LrJ.js",
     "name": "adapter.ts",
     "src": "src/adapters/slack/adapter.ts",
     "isEntry": true,
     "imports": [
-      "_BaseAdapter-Dl4brJyi.js",
+      "_BaseAdapter-BVPgsV5Q.js",
       "_message-schema-1hx2mHKL.js"
     ]
   },
   "src/adapters/teams/adapter.ts": {
-    "file": "assets/adapter.ts-ChfZVO6C.js",
+    "file": "assets/adapter.ts-DZiTQ1e8.js",
     "name": "adapter.ts",
     "src": "src/adapters/teams/adapter.ts",
     "isEntry": true,
     "imports": [
-      "_BaseAdapter-Dl4brJyi.js",
+      "_BaseAdapter-BVPgsV5Q.js",
       "_message-schema-1hx2mHKL.js"
     ]
   },
   "src/adapters/telegram/adapter.ts": {
-    "file": "assets/adapter.ts-Z6SGDr7a.js",
+    "file": "assets/adapter.ts-XmlzknLw.js",
     "name": "adapter.ts",
     "src": "src/adapters/telegram/adapter.ts",
     "isEntry": true,
     "imports": [
-      "_BaseAdapter-Dl4brJyi.js",
+      "_BaseAdapter-BVPgsV5Q.js",
       "_message-schema-1hx2mHKL.js"
     ]
   },
   "src/adapters/whatsapp/adapter.ts": {
-    "file": "assets/adapter.ts-Cs26vrGD.js",
+    "file": "assets/adapter.ts-Tk2V56Jq.js",
     "name": "adapter.ts",
     "src": "src/adapters/whatsapp/adapter.ts",
     "isEntry": true,
     "imports": [
-      "_BaseAdapter-Dl4brJyi.js",
+      "_BaseAdapter-BVPgsV5Q.js",
       "_message-schema-1hx2mHKL.js"
     ]
   },
@@ -111,7 +111,7 @@
     ]
   },
   "src/sidepanel/index.html": {
-    "file": "assets/index.html-QOjxhBRw.js",
+    "file": "assets/index.html-oBE_1MUe.js",
     "name": "index.html",
     "src": "src/sidepanel/index.html",
     "isEntry": true,

@@ -5,7 +5,9 @@
   "description": "AI-powered communication catch-up system.",
   "permissions": [
     "storage",
-    "sidePanel"
+    "sidePanel",
+    "tabs",
+    "activeTab"
   ],
   "host_permissions": [
     "https://web.whatsapp.com/*",
@@ -29,7 +31,7 @@
   "content_scripts": [
     {
       "js": [
-        "assets/adapter.ts-loader-BHhRneti.js"
+        "assets/adapter.ts-loader-D-lKQWdu.js"
       ],
       "matches": [
         "https://web.whatsapp.com/*"
@@ -37,7 +39,7 @@
     },
     {
       "js": [
-        "assets/adapter.ts-loader-TJmRUj3J.js"
+        "assets/adapter.ts-loader-Dd-GQcj_.js"
       ],
       "matches": [
         "https://web.telegram.org/*"
@@ -45,7 +47,7 @@
     },
     {
       "js": [
-        "assets/adapter.ts-loader-DAvV1G2g.js"
+        "assets/adapter.ts-loader-B0TUkk64.js"
       ],
       "matches": [
         "https://app.slack.com/*"
@@ -53,7 +55,7 @@
     },
     {
       "js": [
-        "assets/adapter.ts-loader-DDJqUssT.js"
+        "assets/adapter.ts-loader-rz2LKNn7.js"
       ],
       "matches": [
         "https://discord.com/*"
@@ -61,7 +63,7 @@
     },
     {
       "js": [
-        "assets/adapter.ts-loader-DP5CW3kA.js"
+        "assets/adapter.ts-loader-Dz5zqoV5.js"
       ],
       "matches": [
         "https://teams.microsoft.com/*"
@@ -69,7 +71,7 @@
     },
     {
       "js": [
-        "assets/adapter.ts-loader-BlX00KXw.js"
+        "assets/adapter.ts-loader-o4tuhLDM.js"
       ],
       "matches": [
         "https://mail.google.com/*"
@@ -85,9 +87,9 @@
         "https://web.whatsapp.com/*"
       ],
       "resources": [
-        "assets/BaseAdapter-Dl4brJyi.js",
+        "assets/BaseAdapter-BVPgsV5Q.js",
         "assets/message-schema-1hx2mHKL.js",
-        "assets/adapter.ts-Cs26vrGD.js"
+        "assets/adapter.ts-Tk2V56Jq.js"
       ],
       "use_dynamic_url": false
     },
@@ -96,9 +98,9 @@
         "https://web.telegram.org/*"
       ],
       "resources": [
-        "assets/BaseAdapter-Dl4brJyi.js",
+        "assets/BaseAdapter-BVPgsV5Q.js",
         "assets/message-schema-1hx2mHKL.js",
-        "assets/adapter.ts-Z6SGDr7a.js"
+        "assets/adapter.ts-XmlzknLw.js"
       ],
       "use_dynamic_url": false
     },
@@ -107,9 +109,9 @@
         "https://app.slack.com/*"
       ],
       "resources": [
-        "assets/BaseAdapter-Dl4brJyi.js",
+        "assets/BaseAdapter-BVPgsV5Q.js",
         "assets/message-schema-1hx2mHKL.js",
-        "assets/adapter.ts-BxENCSNa.js"
+        "assets/adapter.ts-CvMu5LrJ.js"
       ],
       "use_dynamic_url": false
     },
@@ -118,9 +120,9 @@
         "https://discord.com/*"
       ],
       "resources": [
-        "assets/BaseAdapter-Dl4brJyi.js",
+        "assets/BaseAdapter-BVPgsV5Q.js",
         "assets/message-schema-1hx2mHKL.js",
-        "assets/adapter.ts-Clk0rFeO.js"
+        "assets/adapter.ts-CwvI5oUv.js"
       ],
       "use_dynamic_url": false
     },
@@ -129,9 +131,9 @@
         "https://teams.microsoft.com/*"
       ],
       "resources": [
-        "assets/BaseAdapter-Dl4brJyi.js",
+        "assets/BaseAdapter-BVPgsV5Q.js",
         "assets/message-schema-1hx2mHKL.js",
-        "assets/adapter.ts-ChfZVO6C.js"
+        "assets/adapter.ts-DZiTQ1e8.js"
       ],
       "use_dynamic_url": false
     },
@@ -140,9 +142,9 @@
         "https://mail.google.com/*"
       ],
       "resources": [
-        "assets/BaseAdapter-Dl4brJyi.js",
+        "assets/BaseAdapter-BVPgsV5Q.js",
         "assets/message-schema-1hx2mHKL.js",
-        "assets/adapter.ts-DkxqP9WX.js"
+        "assets/adapter.ts-DrF8Ei5d.js"
       ],
       "use_dynamic_url": false
     }

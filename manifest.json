@@ -3,7 +3,7 @@
   "name": "CatchUp Universal",
   "version": "1.0.0",
   "description": "AI-powered communication catch-up system.",
-  "permissions": ["storage", "sidePanel"],
+  "permissions": ["storage", "sidePanel", "tabs", "activeTab"],
   "host_permissions": [
     "https://web.whatsapp.com/*",
     "https://web.telegram.org/*",

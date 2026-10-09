@@ -27,6 +27,16 @@ export abstract class BaseAdapter implements PlatformAdapter {
       characterData: true
     });
 
+    // Listen for manual extraction requests from the Side Panel
+    chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+      if (message.type === 'FORCE_EXTRACT') {
+        console.log(`[CatchUp] Force extraction triggered for ${this.platformName}`);
+        this.handleDOMChange();
+        sendResponse({ success: true });
+      }
+      return true;
+    });
+
     this.isInitialized = true;
     
     // Do an initial extraction
