@@ -55,8 +55,17 @@ export async function generateAISummary(messages: CapturedMessage[]): Promise<AI
     return parsed as AISummary;
     
   } catch (err) {
-    console.error('Failed to generate summary with Ollama', err);
-    throw err;
+    console.warn('Failed to generate summary with Ollama, falling back to mock summary for testing.', err);
+    // Fallback Mock Summary so the app never totally crashes in demos
+    return {
+      overview: "Mock Summary: Your Ollama server is currently unreachable. Please start it with `ollama serve`.",
+      actionItems: [{ description: "Start local Ollama server", sourceIds: [] }],
+      decisions: [],
+      directRequests: [],
+      deadlines: [],
+      itemsToVerify: [],
+      uncertainties: [{ description: "Unable to reach AI provider", sourceIds: [] }]
+    };
   }
 }
 
